@@ -21,7 +21,13 @@ public class Main extends ApplicationAdapter {
 	
 	SpriteBatch batch;
 	BitmapFont font;
-	int taxaErro = 1;
+	float taxaErro = 1.4f;
+	int contador = 0;
+	static int POS = 300;
+	static int MUL = 98;
+	
+	int[] contadores = new int[7];
+	int medicoes = 0;
 	
 	
 	
@@ -59,28 +65,40 @@ public class Main extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		render.begin(ShapeType.Filled);
 		
-		
-		
 		batch.begin();
 		font.draw(batch, "taxa De Erro em Cache:" + (taxaErro*0.1f) , 410, 30);
 		batch.end();
 		
+		medicoes++;
+		
 		for(int i =0;i<p.size();i++) {
 			if(p.get(i).estado == 0) {
 				render.setColor(Color.BLUE);
-				render.rect(100*i,200,50,50);
+				batch.begin();
+//				font.draw(batch, "running", MUL*i,POS+80);
+				batch.end();
+				render.rect(MUL*i,POS,50,50);
 				render.setColor(Color.GRAY);
-				render.line(100*i + 25, 225, 300, 30);
+				render.rectLine(MUL*i + 25, POS, MUL*i + 25, POS - 60-5,10); // parte individual
+				render.rectLine(MUL*i + 25-5, POS-60, 300+5, POS-60,10); // parte compartilhadan250,POS-200
+				render.rectLine(300, POS-60, 300, POS-200,10); // parte compartilhadan250,POS-200
+
 
 
 			}
 		}
 		
-		render.setColor(Color.RED);
 		for(int i =0;i<p.size();i++) {
 			if(p.get(i).estado == 1) {
-				render.rect(100*i,200,50,50);
-				render.line(100*i + 25, 225, 300, 30);
+				contadores[i]++;
+				batch.begin();
+				font.draw(batch, "Waiting", MUL*i,POS+80);
+				batch.end();
+				render.setColor(Color.RED);
+				render.rect(MUL*i,POS,50,50);
+				render.rectLine(MUL*i + 25, POS, MUL*i + 25, POS - 60+5,10); // parte individual
+				render.setColor(Color.GRAY);
+				render.rectLine(MUL*i + 25, POS-60, 250, POS-60,10); // parte compartilhadan250,POS-200
 				
 			}
 		}
@@ -91,28 +109,64 @@ public class Main extends ApplicationAdapter {
 		for(int i =0;i<p.size();i++) {
 			if(p.get(i).estado == 2) {
 				usoumemoria = true;
-				render.rect(100*i,200,50,50);
-				render.line(100*i + 25, 225, 300, 30);
+				batch.begin();
+				font.draw(batch, "Reading", MUL*i,POS+80);
+				batch.end();
+				render.rect(MUL*i,POS,50,50);
+				render.rectLine(MUL*i + 25, POS, MUL*i + 25, POS - 60-5,10); // parte individual
+				render.rectLine(MUL*i + 25, POS-60, 300+5, POS-60,10); // parte compartilhadan250,POS-200
+				render.rectLine(300, POS-60+5, 300, POS-200,10); // parte compartilhadan250,POS-200
 			}
 		}
 		
 		if(usoumemoria) {
 			render.setColor(Color.GREEN);
-			render.rect(250,10,100,50);
+			render.rect(250,POS-200,100,50);
 		}else {
 			render.setColor(Color.GRAY);
-			render.rect(250,10,100,50);
+			render.rect(250,POS - 200,100,50);
 		}
+		batch.begin();
+		font.draw(batch, "RAM", 250 + 35,POS-210);
+		font.draw(batch, "a - Adiciona Processador ao BUS",10,35);
+		font.draw(batch, "d - deleta Processador ao BUS",10,20);
+		
+		
+		batch.end();
 		
 		render.end();
 		
 		
 		
 		if(Gdx.input.isKeyJustPressed(Keys.A)) {
-			criaProcessador();
+			if(contador < 7) {
+				contador++;
+				criaProcessador();
+			}
+			for(int i=0;i<7;i++) {
+				contadores[i] = 0;
+			}
+			medicoes = 0;
 		}
+		
+		if(Gdx.input.isKeyJustPressed(Keys.T)) {
+			float total = 0;
+			for(int i=0;i<p.size();i++) {
+				total += contadores[i]*1f/medicoes;
+				System.out.println("proc " + i + ": " + contadores[i]*1f/medicoes);
+			}
+			total = total/p.size();
+			System.out.println("media eh : " + total);
+		}
+		
 		if(Gdx.input.isKeyJustPressed(Keys.D)) {
+			if(contador>0)
+				contador--;
 			retiraProcessador();
+			for(int i=0;i<7;i++) {
+				contadores[i] = 0;
+			}
+			medicoes = 0;
 		}
 		
 		if(Gdx.input.isKeyJustPressed(Keys.UP)) {

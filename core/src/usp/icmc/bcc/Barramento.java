@@ -25,13 +25,13 @@ public class Barramento implements Runnable{
 	}
 	
 	public Boolean colocaNoBarramento() {
-		System.out.println("PEDIU PRA ENTRAR");
+//		System.out.println("PEDIU PRA ENTRAR");
 		if(livre) {
 			livre = !livre;
-			System.out.println("Permitido");
+//			System.out.println("Permitido");
 			return true;
 		}
-		System.out.println("NEGADO");
+//		System.out.println("NEGADO");
 		return false;
 		
 	}

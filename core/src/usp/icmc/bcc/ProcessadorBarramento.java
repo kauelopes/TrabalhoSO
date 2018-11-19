@@ -33,6 +33,7 @@ public class ProcessadorBarramento implements Runnable{
 				Thread.sleep(500);
 				if(Math.random()<chanceDeAcessoAMemória) {					
 					while(!barramento.colocaNoBarramento()) {
+						Thread.sleep((int)Math.random()*20);
 						estado = 1;					
 					}
 					estado = 2;
