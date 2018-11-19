@@ -66,7 +66,7 @@ public class Main extends ApplicationAdapter {
 		render.begin(ShapeType.Filled);
 		
 		batch.begin();
-		font.draw(batch, "taxa De Erro em Cache:" + (taxaErro*0.1f) , 410, 30);
+		font.draw(batch, "taxa De Erro em Cache:" + (taxaErro*0.1f) , 390, 20);
 		batch.end();
 		
 		medicoes++;
@@ -149,7 +149,7 @@ public class Main extends ApplicationAdapter {
 			medicoes = 0;
 		}
 		
-		if(Gdx.input.isKeyJustPressed(Keys.T)) {
+//		if(Gdx.input.isKeyJustPressed(Keys.T)) {
 			float total = 0;
 			for(int i=0;i<p.size();i++) {
 				total += contadores[i]*1f/medicoes;
@@ -157,7 +157,13 @@ public class Main extends ApplicationAdapter {
 			}
 			total = total/p.size();
 			System.out.println("media eh : " + total);
-		}
+			batch.begin();
+			font.draw(batch, "% média de tempo em espera: " + String.format("%.3g%n",total), 390,35);
+
+			
+			
+			batch.end();
+//		}
 		
 		if(Gdx.input.isKeyJustPressed(Keys.D)) {
 			if(contador>0)
@@ -171,13 +177,13 @@ public class Main extends ApplicationAdapter {
 		
 		if(Gdx.input.isKeyJustPressed(Keys.UP)) {
 			if(taxaErro<10) {
-				taxaErro+=1;
+				taxaErro+=0.1;
 			}
 		}
 		
 		if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
 			if(taxaErro>0) {
-				taxaErro-=1;
+				taxaErro-=0.1;
 			}
 		}
 		

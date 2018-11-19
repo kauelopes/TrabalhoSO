@@ -1,0 +1,83 @@
+-Barramento
+	- Numero de Processadores
+	- Frequência de acesso a memória
+
+
+-Barramento Com Cache
+	- Numero de Processadores
+	- Frequência de acesso a memória
+
+
+
+
+BARRAMENTO em 14% erro na cache
+7 Processadores
+0.39592484
+
+6 Processadores
+0.31114015
+
+5 Processadores
+0.2678401
+
+4 Processadores
+0.1474863
+
+3 Processadores
+0.07859405
+
+2 Processadores
+0.016037736
+
+1 Processador
+0
+
+
+BARRAMENTO 24%
+7 Processadores
+0.62835634
+
+6 Processadores
+0.51805216
+
+5 Processadores
+0.42860013
+
+4 Processadores
+0.3044258
+
+3 Processadores
+0.24976559
+
+2 Processadores
+0.109167896
+
+1 Processador
+0
+
+
+
+BARRAMENTO 10%
+7 Processadores
+0.2815778
+
+6 Processadores
+ 0.17919755
+
+5 Processadores
+0.12940922
+
+4 Processadores
+0.09103138
+
+3 Processadores
+0.042123
+
+2 Processadores
+0.010791072
+
+1 Processador
+0
+
+
+
